@@ -1,24 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
+import { useSelector, useDispatch} from 'react-redux'
+import toggleSwitch from './reducers/subReducer'
 import './App.css';
 
 function App() {
+
+  const ui = useSelector(state => state.subReducer)
+  const dispatch = useDispatch()
+  console.log(ui)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>{JSON.stringify(ui)}</div>
+      <ul>
+        {ui.todo.map((todo => (
+          <li key={todo.id}>{todo.title}
+          <input 
+          type="checkbox"
+            value={todo.completed}
+          onChange={() => dispatch({type:'TOGGLE'})} 
+          />
+          </li>
+        )))}
+      </ul>
+      <input 
+        type="checkbox"
+          value={ui.toggle}
+        onChange={() => dispatch({type:'TOGGLE'})} 
+        />
     </div>
   );
 }
