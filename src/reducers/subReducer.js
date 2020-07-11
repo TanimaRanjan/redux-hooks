@@ -27,9 +27,10 @@ export default (state=initialState, action) => {
             }
         
         case 'TOGGLE_TODO': 
+            
             return {
                 ...state, 
-                todos : state.todos.map(todo => todo.id === payload.id ? { ...todo, completed:!todo.complete} : todo)
+                todos : state.todos.map(todo => todo.id === payload ? { ...todo, completed:!todo.completed} : todo)
             }
 
         case 'ADD_TODO':

@@ -6,7 +6,12 @@ const selectData = state => state.data.todos
 
 export const selectNumOfDoneTodos = createSelector(
     selectData,
-    todos => todos.map(todo => todo.completed).length
+    todos => todos.filter(todo => !todo.completed).length
+)
+
+export const selectNotCompleted = createSelector(
+    selectData,
+    todos => todos.filter(todo => !todo.completed)
 )
 
 export const selectTodos = createSelector(
@@ -16,9 +21,12 @@ export const selectTodos = createSelector(
     // todos => todos.appTitle
 )
 
+export const selectTitle = createSelector(
+    selectState,
+    todos => todos.appTitle
+)
+
 export default selectNumOfDoneTodos 
-
-
 
 
 // const shopItemsSelector = state => state.shop.items
