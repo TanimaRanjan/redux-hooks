@@ -1,6 +1,8 @@
 const initialState = {
+    appTitle:'TodoList',
+    appSubTitle:'Get things done',
     toggle:false,
-    todo:[
+    todos:[
         {   id:1,
             title:'Study',
             completed:false
@@ -18,12 +20,31 @@ export default (state=initialState, action) => {
 
     const {type, payload} = action
     switch(type) {
-        case 'TOGGLE' : {
+        case 'TOGGLE' : 
             return {
                 ...state,
                 toggle : !state.toggle
             }
-        }
+        
+        case 'TOGGLE_TODO': 
+            return {
+                ...state, 
+                todos : state.todos.map(todo => todo.id === payload.id ? { ...todo, completed:!todo.complete} : todo)
+            }
+
+        case 'ADD_TODO':
+            return {...state, 
+                todos: state.todos.push(payload), 
+            }
+
+        case 'EDIT_TODO': 
+            return { ...state , 
+                todos : state.todos.map(todo => todo.id === payload.id ? {...todo, title:payload.title} : todo)
+            }
+        
+        case 'DELETE_TODO': 
+            return {...state.filter(todo => todo.id !== payload),  
+            }
         
         default:
             return {...state }
